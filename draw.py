@@ -1,0 +1,77 @@
+import framebuf2 as framebuf
+# draw.py
+# アナログ時計描画用モジュール
+
+import math
+
+def draw_thick_line(fb, x0, y0, x1, y1, width, color):
+    # 線分(x0,y0)-(x1,y1)を幅widthで平行移動した複数線で描画
+    dx = x1 - x0
+    dy = y1 - y0
+    length = math.sqrt(dx*dx + dy*dy)
+    if length == 0:
+        return
+    # 垂直方向ベクトル
+    nx = -dy / length
+    ny = dx / length
+    for w in range(-width//2, width//2+1):
+        sx0 = int(x0 + nx * w)
+        sy0 = int(y0 + ny * w)
+        sx1 = int(x1 + nx * w)
+        sy1 = int(y1 + ny * w)
+        fb.line(sx0, sy0, sx1, sy1, color)
+
+# 円描画（framebuf.circle未実装対策）
+def draw_circle(fb, x0, y0, r, color):
+    for angle in range(0, 360, 2):
+        rad = math.radians(angle)
+        x = int(x0 + r * math.cos(rad))
+        y = int(y0 + r * math.sin(rad))
+        fb.pixel(x, y, color)
+
+# アナログ時計描画
+# fb: framebufオブジェクト, hour, minute, second: int, center_x, center_y, radius: int
+# color: 描画色
+
+def draw_clock(
+    fb: framebuf.FrameBuffer, hour, minute, second, center_x, center_y, radius, color
+):
+    # 12, 3, 6, 9の数字を大きく描画
+    num_list = [(12, 0), (3, 90), (6, 180), (9, 270)]
+    num_radius = radius - 24
+    num_angle_set = set([0, 90, 180, 270])
+    # 12, 3, 6, 9の数字（8倍サイズで描画）
+    for num, deg in num_list:
+        rad = math.radians(deg - 90)
+        x = int(center_x + num_radius * math.cos(rad))
+        y = int(center_y + num_radius * math.sin(rad))
+        if num == 12:
+            fb.large_text(str(num), x - 28, y - 16, 4, color)  # 2文字分左にずらす
+        else:
+            fb.large_text(str(num), x - 16, y - 16, 4, color)
+    # 12時間の目盛り（数字位置は除外）
+    offsets = [0, 1]
+    for h in range(12):
+        angle_deg = h * 30
+        if angle_deg in num_angle_set:
+            continue  # 12,3,6,9の位置は目盛り描画しない
+        angle = math.radians(angle_deg - 90)
+        for off in offsets:
+            outer_x = int(center_x + (radius + off) * math.cos(angle))
+            outer_y = int(center_y + (radius + off) * math.sin(angle))
+            inner_x = int(center_x + (radius - 10 + off) * math.cos(angle))
+            inner_y = int(center_y + (radius - 10 + off) * math.sin(angle))
+            fb.line(inner_x, inner_y, outer_x, outer_y, color)
+    # 時針（太い線で描画）
+    hour_angle = math.radians((hour % 12 + minute / 60) * 30 - 90)
+    hour_length = int(radius * 0.5)
+    hour_x = int(center_x + hour_length * math.cos(hour_angle))
+    hour_y = int(center_y + hour_length * math.sin(hour_angle))
+    draw_thick_line(fb, center_x, center_y, hour_x, hour_y, 4, color)
+    # 分針（太さ2/3で描画）
+    minute_angle = math.radians(minute * 6 - 90)
+    minute_length = int(radius * 0.8)
+    minute_x = int(center_x + minute_length * math.cos(minute_angle))
+    minute_y = int(center_y + minute_length * math.sin(minute_angle))
+    draw_thick_line(fb, center_x, center_y, minute_x, minute_y, 3, color)
+    # ...秒針は描画しない...
