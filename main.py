@@ -27,17 +27,21 @@ def main():
         hour = t[3]
         minute = t[4]
         second = t[5]
-        # 画面クリア
-        epd.image1Gray.fill(epd.white)
-        # アナログ時計（上部）
-        draw_clock(epd.image1Gray, hour, minute, second, center_x, clock_center_y, radius, epd.black)
-        # 下部に日付と時刻を大きく表示
-        datestr = "{:04}/{:02}/{:02}".format(t[0], t[1], t[2])
-        timestr = "{:02}:{:02}:{:02}".format(hour, minute, second)
-        # 日付（下部中央）
-        epd.image1Gray.large_text(datestr, center_x-90, epd.height-70, 2, epd.black)
-        # 時刻（下部中央）
-        epd.image1Gray.large_text(timestr, center_x-90, epd.height-40, 2, epd.black)
+        # 描画処理をdraw.pyへ分離
+        from draw import draw_screen
+
+        draw_screen(
+            epd.image1Gray,
+            hour,
+            minute,
+            second,
+            t,
+            center_x,
+            clock_center_y,
+            radius,
+            epd.black,
+            epd.height
+        )
         epd.EPD_3IN7_1Gray_Display_Part(epd.buffer_1Gray)  # 部分更新
         utime.sleep(10)
 
