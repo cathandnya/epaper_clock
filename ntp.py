@@ -7,7 +7,8 @@ def get_ntp_time():
         ntptime.settime()
         t = utime.localtime()
         # JST（UTC+9）補正
-        t = utime.localtime(utime.mktime(t) + 9 * 3600)
+        # 描画遅延を考慮して5秒加算
+        t = utime.localtime(utime.mktime(t) + 9 * 3600 + 5)
         return t
     except Exception as e:
         print("NTP取得失敗:", e)
