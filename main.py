@@ -31,6 +31,7 @@ def main():
     from draw import draw_screen
 
     prev_time = utime.time()
+    prev_minute = None
     while True:
         now = utime.time()
         # 60分ごとにNTP参照
@@ -56,20 +57,23 @@ def main():
                 hour += 1
             while hour >= 24:
                 hour -= 24
-        draw_screen(
-            epd.image1Gray,
-            hour,
-            minute,
-            int(second),
-            t,
-            center_x,
-            clock_center_y,
-            radius,
-            epd.black,
-            epd.height,
-        )
-        epd.EPD_3IN7_1Gray_Display_Part(epd.buffer_1Gray)  # 部分更新
-        utime.sleep(30)
+        # 分が変わった時だけ描画・更新
+        if prev_minute != int(minute):
+            draw_screen(
+                epd.image1Gray,
+                hour,
+                minute,
+                int(second),
+                t,
+                center_x,
+                clock_center_y,
+                radius,
+                epd.black,
+                epd.height,
+            )
+            epd.EPD_3IN7_1Gray_Display_Part(epd.buffer_1Gray)  # 部分更新
+            prev_minute = int(minute)
+        utime.sleep(1)
 
 
 if __name__ == "__main__":
