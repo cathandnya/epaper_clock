@@ -104,9 +104,12 @@ def draw_clock(
     # 時針（太い線で描画、長さは半径の0.6倍）
     hour_angle = math.radians((hour % 12 + minute / 60) * 30)
     hour_length = int(radius * 0.6)
-    hour_x = int(center_x + hour_length * math.cos(hour_angle))
-    hour_y = int(center_y + hour_length * math.sin(hour_angle))
-    draw_thick_line(fb, center_x, center_y, hour_x, hour_y, 4, color)
+    hour_offset = 8
+    hour_x0 = int(center_x - hour_offset * math.cos(hour_angle))
+    hour_y0 = int(center_y - hour_offset * math.sin(hour_angle))
+    hour_x1 = int(center_x + hour_length * math.cos(hour_angle))
+    hour_y1 = int(center_y + hour_length * math.sin(hour_angle))
+    draw_thick_line(fb, hour_x0, hour_y0, hour_x1, hour_y1, 4, color)
     # 分針・秒針は1/60精度で丸めて描画
     minute_rounded = int(minute)
     # 秒針は1/60精度（毎秒）で描画
@@ -114,13 +117,19 @@ def draw_clock(
     # 分針（太さ3、長さは半径の0.8倍）
     minute_angle = math.radians(minute_rounded * 6)
     minute_length = int(radius * 0.8)
-    minute_x = int(center_x + minute_length * math.cos(minute_angle))
-    minute_y = int(center_y + minute_length * math.sin(minute_angle))
-    draw_thick_line(fb, center_x, center_y, minute_x, minute_y, 3, color)
+    minute_offset = 8
+    minute_x0 = int(center_x - minute_offset * math.cos(minute_angle))
+    minute_y0 = int(center_y - minute_offset * math.sin(minute_angle))
+    minute_x1 = int(center_x + minute_length * math.cos(minute_angle))
+    minute_y1 = int(center_y + minute_length * math.sin(minute_angle))
+    draw_thick_line(fb, minute_x0, minute_y0, minute_x1, minute_y1, 3, color)
     # 秒針（細い線、長さは半径の0.9倍）
     if show_second_hand:
         second_angle = math.radians(second_rounded * 6)
         second_length = int(radius * 0.9)
-        second_x = int(center_x + second_length * math.cos(second_angle))
-        second_y = int(center_y + second_length * math.sin(second_angle))
-        draw_thick_line(fb, center_x, center_y, second_x, second_y, 1, color)
+        second_offset = 8
+        second_x0 = int(center_x - second_offset * math.cos(second_angle))
+        second_y0 = int(center_y - second_offset * math.sin(second_angle))
+        second_x1 = int(center_x + second_length * math.cos(second_angle))
+        second_y1 = int(center_y + second_length * math.sin(second_angle))
+        draw_thick_line(fb, second_x0, second_y0, second_x1, second_y1, 1, color)
