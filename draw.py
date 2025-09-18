@@ -73,21 +73,21 @@ def draw_clock(
             inner_x = int(center_x + (radius - 10 + off) * math.cos(angle))
             inner_y = int(center_y + (radius - 10 + off) * math.sin(angle))
             fb.line(inner_x, inner_y, outer_x, outer_y, color)
-    # 時針（太い線で描画、長さは半径の0.5倍）
+    # 時針（太い線で描画、長さは半径の0.6倍）
     hour_angle = math.radians((hour % 12 + minute / 60) * 30)
-    hour_length = int(radius * 0.5)
+    hour_length = int(radius * 0.6)
     hour_x = int(center_x + hour_length * math.cos(hour_angle))
     hour_y = int(center_y + hour_length * math.sin(hour_angle))
     draw_thick_line(fb, center_x, center_y, hour_x, hour_y, 4, color)
-    # 分針（太さ3、長さは半径の0.6倍）
+    # 分針（太さ3、長さは半径の0.8倍）
     minute_angle = math.radians(minute * 6)
-    minute_length = int(radius * 0.6)
+    minute_length = int(radius * 0.8)
     minute_x = int(center_x + minute_length * math.cos(minute_angle))
     minute_y = int(center_y + minute_length * math.sin(minute_angle))
     draw_thick_line(fb, center_x, center_y, minute_x, minute_y, 3, color)
-    # 秒針（細い線、長さは半径の0.8倍）
+    # 秒針（細い線、長さは半径の0.9倍）
     second_angle = math.radians(second * 6)
-    second_length = int(radius * 0.8)
+    second_length = int(radius * 0.9)
     second_x = int(center_x + second_length * math.cos(second_angle))
     second_y = int(center_y + second_length * math.sin(second_angle))
     draw_thick_line(fb, center_x, center_y, second_x, second_y, 1, color)
