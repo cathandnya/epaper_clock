@@ -13,12 +13,14 @@ def draw_screen(
     # アナログ時計（上部）
     draw_clock(fb, hour, minute, second, center_x, clock_center_y, radius, color)
     # 下部に日付と時刻（分まで）を大きく表示
-    datestr = "{:04}/{:02}/{:02}".format(date_tuple[0], date_tuple[1], date_tuple[2])
+    yearstr = "{:04}".format(date_tuple[0])
+    datestr = "{:02}/{:02}".format(date_tuple[1], date_tuple[2])
     timestr = "{:02}:{:02}".format(hour, minute)
     # 日付（下部中央）
-    fb.large_text(datestr, center_x - 90, screen_height - 70, 2, color)
+    fb.large_text(yearstr, center_x - 50, screen_height - 140, 2, color, 90)
+    fb.large_text(datestr, center_x - 80, screen_height - 140, 2, color, 90)
     # 時刻（下部中央）
-    fb.large_text(timestr, center_x - 90, screen_height - 40, 2, color)
+    fb.large_text(timestr, center_x - 110, screen_height - 140, 2, color, 90)
 
 
 def draw_thick_line(fb, x0, y0, x1, y1, width, color):
@@ -55,7 +57,7 @@ def draw_clock(
 ):
     # 12, 3, 6, 9の数字を大きく描画
     num_list = [(12, 0), (3, 90), (6, 180), (9, 270)]
-    num_radius = radius - 24
+    num_radius = radius - 12
     num_angle_set = set([0, 90, 180, 270])
     # 12, 3, 6, 9の数字（8倍サイズで描画）
     for num, deg in num_list:
@@ -63,9 +65,9 @@ def draw_clock(
         x = int(center_x + num_radius * math.cos(rad))
         y = int(center_y + num_radius * math.sin(rad))
         if num == 12:
-            fb.large_text(str(num), x - 28, y - 16, 4, color)  # 2文字分左にずらす
+            fb.large_text(str(num), x - 16, y - 28, 4, color, 90)  # 2文字分左にずらす
         else:
-            fb.large_text(str(num), x - 16, y - 16, 4, color)
+            fb.large_text(str(num), x - 16, y - 16, 4, color, 90)
     # 12時間の目盛り（数字位置は除外）
     offsets = [0, 1]
     for h in range(12):
