@@ -17,7 +17,7 @@ def draw_screen(
     color,
     screen_height,
     show_second_hand=False,
-    invert_color=True,
+    invert_color=False,
 ):
     # 画面を白でクリア
     bg_color = 1 if not invert_color else 0
@@ -105,7 +105,8 @@ def draw_clock(
             inner_y = int(center_y + (radius - 10 + off) * math.sin(angle))
             fb.line(inner_x, inner_y, outer_x, outer_y, color)
     # 時針（太い線で描画、長さは半径の0.6倍）
-    hour_angle = math.radians((hour % 12 + minute / 60) * 30)
+    minute_rounded = int(round(minute))
+    hour_angle = math.radians((hour % 12 + minute_rounded / 60) * 30)
     hour_length = int(radius * 0.6)
     hour_offset = 8
     hour_x0 = int(center_x - hour_offset * math.cos(hour_angle))
@@ -114,9 +115,8 @@ def draw_clock(
     hour_y1 = int(center_y + hour_length * math.sin(hour_angle))
     draw_thick_line(fb, hour_x0, hour_y0, hour_x1, hour_y1, 4, color)
     # 分針・秒針は1/60精度で丸めて描画
-    minute_rounded = int(minute)
     # 秒針は1/60精度（毎秒）で描画
-    second_rounded = int(second)
+    second_rounded = int(round(second))
     # 分針（太さ3、長さは半径の0.8倍）
     minute_angle = math.radians(minute_rounded * 6)
     minute_length = int(radius * 0.8)

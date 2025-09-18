@@ -69,7 +69,7 @@ def main():
             epd.height,
         )
         epd.EPD_3IN7_1Gray_Display_Part(epd.buffer_1Gray)  # 部分更新
-        utime.sleep(1)
+        utime.sleep(30)
 
 
 if __name__ == "__main__":
