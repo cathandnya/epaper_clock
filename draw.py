@@ -17,9 +17,12 @@ def draw_screen(
     color,
     screen_height,
     show_second_hand=False,
+    invert_color=True,
 ):
     # 画面を白でクリア
-    fb.fill(1)
+    bg_color = 1 if not invert_color else 0
+    fg_color = color if not invert_color else (1 if color == 0 else 0)
+    fb.fill(bg_color)
     # 上部にアナログ時計を描画
     draw_clock(
         fb,
@@ -29,7 +32,7 @@ def draw_screen(
         center_x,
         clock_center_y,
         radius,
-        color,
+        fg_color,
         show_second_hand,
     )
     # 下部に日付と時刻（分まで）を大きく表示
@@ -37,10 +40,10 @@ def draw_screen(
     datestr = "{:02}/{:02}".format(date_tuple[1], date_tuple[2])
     timestr = "{:02}:{:02}".format(hour, minute)
     # 日付（下部中央）
-    fb.large_text(yearstr, center_x - 50, screen_height - 140, 2, color, 90)
-    fb.large_text(datestr, center_x - 80, screen_height - 140, 2, color, 90)
+    fb.large_text(yearstr, center_x - 50, screen_height - 140, 2, fg_color, 90)
+    fb.large_text(datestr, center_x - 80, screen_height - 140, 2, fg_color, 90)
     # 時刻（下部中央）
-    fb.large_text(timestr, center_x - 110, screen_height - 140, 2, color, 90)
+    fb.large_text(timestr, center_x - 110, screen_height - 140, 2, fg_color, 90)
 
 
 def draw_thick_line(fb, x0, y0, x1, y1, width, color):
