@@ -10,9 +10,5 @@ def get_ntp_time():
         t = utime.localtime(utime.mktime(t) + 9 * 3600)
         return t
     except Exception as e:
-        print('NTP取得失敗:', e)
+        print("NTP取得失敗:", e)
         return None
-# ntp.py
-# NTP時刻取得用モジュール
-
-    # ...existing code...
