@@ -6,12 +6,32 @@ import math
 
 
 def draw_screen(
-    fb, hour, minute, second, date_tuple, center_x, clock_center_y, radius, color, screen_height
+    fb,
+    hour,
+    minute,
+    second,
+    date_tuple,
+    center_x,
+    clock_center_y,
+    radius,
+    color,
+    screen_height,
+    show_second_hand=False,
 ):
     # 画面を白でクリア
     fb.fill(1)
     # 上部にアナログ時計を描画
-    draw_clock(fb, hour, minute, second, center_x, clock_center_y, radius, color)
+    draw_clock(
+        fb,
+        hour,
+        minute,
+        second,
+        center_x,
+        clock_center_y,
+        radius,
+        color,
+        show_second_hand,
+    )
     # 下部に日付と時刻（分まで）を大きく表示
     yearstr = "{:04}".format(date_tuple[0])
     datestr = "{:02}/{:02}".format(date_tuple[1], date_tuple[2])
@@ -45,7 +65,15 @@ def draw_thick_line(fb, x0, y0, x1, y1, width, color):
 
 
 def draw_clock(
-    fb: framebuf.FrameBuffer, hour, minute, second, center_x, center_y, radius, color
+    fb: framebuf.FrameBuffer,
+    hour,
+    minute,
+    second,
+    center_x,
+    center_y,
+    radius,
+    color,
+    show_second_hand,
 ):
     # 12, 3, 6, 9の数字を大きく描画（拡大文字）
     num_list = [(12, 0), (3, 90), (6, 180), (9, 270)]
@@ -79,15 +107,20 @@ def draw_clock(
     hour_x = int(center_x + hour_length * math.cos(hour_angle))
     hour_y = int(center_y + hour_length * math.sin(hour_angle))
     draw_thick_line(fb, center_x, center_y, hour_x, hour_y, 4, color)
+    # 分針・秒針は1/60精度で丸めて描画
+    minute_rounded = int(minute)
+    # 秒針は1/60精度（毎秒）で描画
+    second_rounded = int(second)
     # 分針（太さ3、長さは半径の0.8倍）
-    minute_angle = math.radians(minute * 6)
+    minute_angle = math.radians(minute_rounded * 6)
     minute_length = int(radius * 0.8)
     minute_x = int(center_x + minute_length * math.cos(minute_angle))
     minute_y = int(center_y + minute_length * math.sin(minute_angle))
     draw_thick_line(fb, center_x, center_y, minute_x, minute_y, 3, color)
     # 秒針（細い線、長さは半径の0.9倍）
-    second_angle = math.radians(second * 6)
-    second_length = int(radius * 0.9)
-    second_x = int(center_x + second_length * math.cos(second_angle))
-    second_y = int(center_y + second_length * math.sin(second_angle))
-    draw_thick_line(fb, center_x, center_y, second_x, second_y, 1, color)
+    if show_second_hand:
+        second_angle = math.radians(second_rounded * 6)
+        second_length = int(radius * 0.9)
+        second_x = int(center_x + second_length * math.cos(second_angle))
+        second_y = int(center_y + second_length * math.sin(second_angle))
+        draw_thick_line(fb, center_x, center_y, second_x, second_y, 1, color)
