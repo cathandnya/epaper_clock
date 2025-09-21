@@ -46,9 +46,9 @@ def main():
 
         # 毎分0秒で画面描画・部分更新
         start_draw = utime.time()  # 描画開始時刻
-        # 10分ごとにフル更新（分が0,10,20,30,40,50のいずれか）
-        full_update = int(minute) % 10 == 0
-        # 10分ごとに時刻補正（分が0,10,20,30,40,50のいずれか）
+        # 5分ごとにフル更新
+        full_update = int(minute) % 5 == 0
+        # 10分ごとに時刻補正
         time_sync = int(minute) % 10 == 0
 
         draw_screen(
