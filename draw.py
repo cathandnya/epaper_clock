@@ -17,7 +17,7 @@ def draw_screen(
     color,
     screen_height,
     show_second_hand=False,
-    invert_color=False,
+    invert_color=True,
 ):
     # 画面を白でクリア
     bg_color = 1 if not invert_color else 0
