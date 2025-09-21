@@ -46,6 +46,11 @@ def main():
 
         # 毎分0秒で画面描画・部分更新
         start_draw = utime.time()  # 描画開始時刻
+        # 10分ごとにフル更新（分が0,10,20,30,40,50のいずれか）
+        full_update = int(minute) % 10 == 0
+        # 10分ごとに時刻補正（分が0,10,20,30,40,50のいずれか）
+        time_sync = int(minute) % 10 == 0
+
         draw_screen(
             epd.image1Gray,
             hour,
@@ -58,10 +63,13 @@ def main():
             epd.black,
             epd.height,
         )
-        epd.EPD_3IN7_1Gray_Display_Part(epd.buffer_1Gray)  # 部分更新
+        if full_update:
+            epd.EPD_3IN7_1Gray_Display(epd.buffer_1Gray)
+        else:
+            epd.EPD_3IN7_1Gray_Display_Part(epd.buffer_1Gray)  # 部分更新
 
-        # 49分または00:00になったらNTPで時刻補正
-        if int(minute) == 49 or (int(hour) == 0 and int(minute) == 0):
+        # 10分ごとにNTPで時刻補正
+        if time_sync:
             ntp_t = get_ntp_time()
             if ntp_t is not None:
                 t = ntp_t
