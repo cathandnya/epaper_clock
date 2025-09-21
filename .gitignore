@@ -1,0 +1,6 @@
+# OS
+.DS_Store
+
+config.py
+framebuf2.py
+Pico_ePaper_3_7.py
