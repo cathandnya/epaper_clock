@@ -18,7 +18,7 @@ def main():
     center_x = epd.width // 2
     # 時計を上部に配置
     clock_center_y = epd.height // 2 - 60
-    radius = min(center_x, clock_center_y) - 20
+    radius = min(center_x, clock_center_y) - 24
     # 最初にNTPで時刻取得（起動時のみ）
     t = get_ntp_time()
     if t is None:
@@ -52,7 +52,7 @@ def main():
             minute,
             int(second),
             t,
-            center_x,
+            center_x - 6,
             clock_center_y,
             radius,
             epd.black,
