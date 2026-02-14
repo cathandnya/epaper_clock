@@ -1,5 +1,7 @@
 # epaper_clock
 
+[![YouTube](https://github.com/user-attachments/assets/edeb4a5f-5257-4a96-9b10-c4d03b915e95)](https://youtu.be/7izADfk7rCI?si=zEewazNPbxkOBeJJ)
+
 ## 概要
 Raspberry Pi Pico WH（ピンヘッダ付き）＋WaveShare 3.7inch e-Paperディスプレイでアナログ時計を作成します。
 NTPで正確な時刻を取得し、時計表示に反映します。
