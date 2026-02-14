@@ -34,5 +34,25 @@ NTPで正確な時刻を取得し、時計表示に反映します。
 3. main.pyを実行（例: `ampy --port /dev/tty.usbmodemXXXXXX run main.py`）
 4. NTPで時刻取得し、e-Paperにアナログ時計＋日付・時刻を表示
 
+### Picoのシリアルポート確認方法（現在のデバイスを知りたい場合）
+macOS例：
+```
+ls -1 /dev/tty.usbmodem* 2>/dev/null
+ls -1 /dev/cu.usbmodem* 2>/dev/null
+```
+接続前後の差分で増えたものがPico。典型的には `tty.usbmodemXXXX01` がREPL。
+
+1つだけ取得したい場合:
+```
+PORT=$(ls -1 /dev/tty.usbmodem* 2>/dev/null | head -n1)
+echo "Detected: $PORT"
+```
+何も表示されない場合は:
+- MicroPython UF2を書き込んだか確認
+- ケーブルがデータ対応か確認
+- 別USBポートを試す
+- `system_profiler SPUSBDataType | grep -A4 -i pico` で認識状況確認
+
+
 ## 参考
 - ePaperサンプル: https://github.com/waveshareteam/Pico_ePaper_Code/

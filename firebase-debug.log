@@ -1,0 +1,14 @@
+[debug] [2026-02-14T05:26:23.605Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-14T05:26:23.607Z] > authorizing via signed-in user (niwayama@alphaversion.co.jp)
+[debug] [2026-02-14T05:26:23.607Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-14T05:26:23.607Z] > authorizing via signed-in user (niwayama@alphaversion.co.jp)
+[debug] [2026-02-14T05:26:23.616Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-14T05:26:23.616Z] > authorizing via signed-in user (niwayama@alphaversion.co.jp)
+[debug] [2026-02-14T05:26:23.684Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-14T05:26:23.685Z] > authorizing via signed-in user (niwayama@alphaversion.co.jp)
+[debug] [2026-02-14T05:26:23.685Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-14T05:26:23.685Z] > authorizing via signed-in user (niwayama@alphaversion.co.jp)
+[debug] [2026-02-14T05:26:23.688Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-14T05:26:23.689Z] > authorizing via signed-in user (niwayama@alphaversion.co.jp)
+[debug] [2026-02-14T05:26:23.689Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-14T05:26:23.689Z] > authorizing via signed-in user (niwayama@alphaversion.co.jp)

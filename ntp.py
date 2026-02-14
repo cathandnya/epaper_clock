@@ -2,7 +2,7 @@ import ntptime
 import utime
 
 def get_ntp_time():
-    ntptime.host = 'ntp.nict.jp'  # 日本のNTPサーバー（NICT公式）
+    ntptime.host = 'pool.ntp.org'
     try:
         ntptime.settime()
         t = utime.localtime()
